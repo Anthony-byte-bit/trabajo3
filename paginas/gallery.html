@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameShop</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header id="mainheader">
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="#">Game Gallery</a></li>
+          <li><a href="public.html">Registro </a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <select id="genreFilter">
+        <option value="all">Todos los géneros</option>
+      </select>
+
+      <div id="game-grid"></div>
+
+      <div id="gameModal" style="display: none">
+        <div id="modalContent"></div>
+        <span class="close" style="cursor: pointer">&times;</span>
+      </div>
+    </main>
+    <script>
+      const gameGrid = document.getElementById("game-grid");
+      const genreFilter = document.getElementById("genreFilter");
+      const modal = document.getElementById("gameModal");
+      const modalContent = document.getElementById("modalContent");
+      const closeBtn = document.getElementsByClassName("close")[0];
+
+      const games = [
+        {
+          title: "Diplomacy is Not an Option",
+          description:
+            "Diplomacy is Not an Option is a strategy game set in a medieval fantasy world. Build your town and defenses, raise huge armies and fight against massive hordes of enemies. How long can you survive?",
+          genre: "Accion",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1272320/header.jpg?t=1728128973",
+          price: "$40.95",
+        },
+        {
+          title: "Grunn",
+          description:
+            "A gardener gets hired for maintenance work over the weekend. A simple task, but strangely some tools are missing…The owner of the garden isn't around, and their house is off-limits. Perhaps new tools can be found in the mysterious town, or maybe some of the reserved townsfolk have seen them?",
+          genre: "Accion",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2720950/header.jpg?t=1728055866",
+          price: "$22.12",
+        },
+        {
+          title: "Potion Tycoon",
+          description:
+            "Potion Tycoon is a management simulator with a witchy twist! Build and develop your very own magic shop. Manage resources, set up production lines, mix potions and sell them smartly to stay ahead of the competition. Welcome to the potion business!",
+          genre: "Adventure",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1485690/header_alt_assets_6.jpg?t=1728063925",
+          price: "$27",
+        },
+        {
+          title: "SpongeBob SquarePants™: The Patrick Star Game",
+          description:
+            "Ponte en los pantaloncillos de Patricio y crea un caos basado en la física. ¡Que Fondo de Bikini sea tu patio!",
+          genre: "Adventure",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2322380/header.jpg?t=1728029958",
+          price: "$77",
+        },
+        {
+          title: "THRONE AND LIBERTY",
+          description:
+            "Lots of battles, fights with other human like, animal like characters in the game. Cutscenes with sand worm, and monster like characters.",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2429640/header.jpg?t=1727823630",
+          price: "Free to play",
+        },
+        {
+          title: "SWORD ART ONLINE Fractured Daydream",
+          description:
+            "Sumérgete en una versión distorsionada del mundo de SWORD ART ONLINE en este juego de acción cooperativo en línea. Elige tu rol a través de tus personajes favoritos de SWORD ART ONLINE y forma equipo con 20 jugadores en incursiones para derrotar a poderosos enemigos.",
+          genre: "Adventure",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1858630/header.jpg?t=1727993071",
+          price: "$177",
+        },
+        {
+          title: "Sniper 3D Assassin: Free to Play",
+          description:
+            "Sniper 3D Assassin® in 7 words: great gameplay, awesome visuals and entertaining missions.",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/922320/header.jpg?t=1538576104",
+          price: "Free to Play",
+        },
+        {
+          title: "Limbus Company",
+          description:
+            "As the Executive Manager of Limbus Company, lead your group of twelve Sinners, venture into the buried facilities of Lobotomy Corporation, and lay claim on the Golden Boughs.",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1973530/header.jpg?t=1725575333",
+          price: "Free to Play",
+        },
+        {
+          title: "Sword of Convallaria",
+          description:
+            "Sword of ConvallariaFantasy Tactical RPG revitalizing the beloved Japanese turn-based & pixel art genre. Collect & train a roster of mercenaries, customize your squad, and use your own strategy to save the nation of Iria. Journey through a world of plot twists where every choice you make will reshape your destiny.",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2526380/header.jpg?t=1725336580",
+          price: "Free to Play",
+        },
+        {
+          title: "Gems of War - Puzzle RPG",
+          description:
+            "Gems of War is a Match-3 RPG from the original creators of Puzzle Quest! Start your RPG journey and fight puzzle battles through hundreds of quests, or build your army of troops and go to war in strategic PVP match-3 combat!",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/329110/header.jpg?t=1721750220",
+          price: "Free to Play",
+        },
+        {
+          title: "Atlantica Global",
+          description:
+            "Atlantica Global is a free-to-play (F2P) massive multiplayer online role-playing game (MMORPG), with a tactical combat system. Venture out in to the world of Atlantis where you'll find otherworldly monsters, amazing gear, and even more battle-hardened adventurers like yourself.",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1232420/header.jpg?t=1654049112",
+          price: "Free to Play",
+        },
+        {
+          title: "Find & Destroy: Tank Strategy",
+          description:
+            "Hardcore turn based tank combat (PVP), mixed with battle arena (MOBA) elements.",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/838510/header.jpg?t=1568118509",
+          price: "Free to Play",
+        },
+        {
+          title: "Left 4 Dead 2",
+          description:
+            "Ambientado en el apocalipsis zombi, Left 4 Dead 2 (L4D2) es la esperadísima secuela del galardonado Left 4 Dead, el juego cooperativo número 1 de 2008. Este FPS cooperativo de acción terrorífica lleva a tus amigos y a ti a través de ciudades, pantanos y cementerios del Profundo Sur de EE. UU.",
+          genre: "Accion",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/550/header.jpg?t=1724971542",
+          price: "$23",
+        },
+        {
+          title: "EA SPORTS FC™ 25",
+          description:
+            "EA SPORTS FC™ 25 te ofrece más formas de ganar para el club. Forma equipo con amistades en tus modos favoritos con el nuevo Rush 5 vs. 5 y lidera a tu club hacia la victoria gracias a FC IQ, que te ofrece más control táctico que nunca.",
+          genre: "Sports",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2669320/header.jpg?t=1727470248",
+          price: "$259",
+        },
+        {
+          title: "Forza Horizon 5",
+          description:
+            "Explora los coloridos paisajes del mundo abierto de México con una acción de conducción ilimitada y divertida en los mejores autos del mundo. Únete a un emocionante juego de persecución con nuestra nueva experiencia multijugador 5c1: Las escondidas.",
+          genre: "Sports",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg?t=1727883919 ",
+          price: "S/.199.00",
+        },
+        {
+          title: "eFootball™",
+          description:
+            "¡El frenético juego de fútbol con un total mundial de 750 millones de descargas te está esperando! ¡Juega eFootball™ con usuarios de todo el mundo!",
+          genre: "Free to play",
+          image:
+            "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1665460/header.jpg?t=1726123478 ",
+          price: "Free to Play",
+        },
+      ];
+
+      function displayGames(filter = "all") {
+        gameGrid.innerHTML = "";
+        games.forEach((game) => {
+          if (filter === "all" || game.genre === filter) {
+            const gameCard = document.createElement("div");
+            gameCard.classList.add("game-card");
+            gameCard.innerHTML = `
+                        <img src="${game.image}" alt="${game.title}">
+                        <h3>${game.title}</h3>
+                        <button class="favorite-btn">Favorite</button>
+                      `;
+            gameCard
+              .querySelector(".favorite-btn")
+              .addEventListener("click", toggleFavorite);
+            gameCard.addEventListener("click", () => showGameDetails(game));
+            gameGrid.appendChild(gameCard);
+          }
+        });
+      }
+
+      function toggleFavorite(e) {
+        e.stopPropagation();
+        const button = e.target;
+        button.textContent =
+          button.textContent === "Favorite" ? "Favorited" : "Favorite";
+        button.style.backgroundColor =
+          button.textContent === "Favorited" ? "#dc3545" : "#007bff";
+      }
+
+      function showGameDetails(game) {
+        modalContent.innerHTML = `
+                    <h2>${game.title}</h2>
+                    <img src="${game.image}" alt="${game.title}" style="width: 200px; height: 300px; object-fit: cover;">
+                    <p>${game.description}</p>
+                    <p>Genre: ${game.genre}</p>
+                    <p>Price: ${game.price}</p>
+                  `;
+        modal.style.display = "block";
+      }
+
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      function populateGenreFilter() {
+        const genres = [...new Set(games.map((game) => game.genre))];
+        genres.forEach((genre) => {
+          const option = document.createElement("option");
+          option.value = genre;
+          option.textContent = genre;
+          genreFilter.appendChild(option);
+        });
+      }
+
+      genreFilter.addEventListener("change", (e) => {
+        displayGames(e.target.value);
+      });
+
+      populateGenreFilter();
+      displayGames();
+    </script>
+    <footer>
+      <p>&copy; 2024 GameShop. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>

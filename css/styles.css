@@ -1,0 +1,157 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: white;
+  background-color: rgb(0, 0, 0);
+}
+nav {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+}
+h1 {
+  font-size: 2 rem;
+  text-align: center;
+}
+main section {
+  flex: 1;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 25px;
+}
+p {
+  padding: 10px;
+  text-align: center;
+}
+#mainheader {
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  text-align: center;
+}
+#mainheader ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+#mainheader ul li {
+  margin: 0 1rem;
+}
+#mainheader ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+#genreFilter {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 200px;
+}
+main {
+  padding: 2rem;
+}
+footer {
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 1px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 20px;
+}
+.favorite-btn {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 3px;
+}
+.favorite-btn:hover {
+  background-color: #0056b3;
+}
+
+#game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+}
+
+.game-card {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ffffff;
+  color: rgb(12, 1, 32);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-card img {
+  width: 400px;
+  height: 225px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.game-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-form label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.contact-form input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #a593c2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.contact-form input[type="submit"]:hover {
+  background-color: #070000;
+}
+@media (max-width: 768px) {
+  #game-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
